@@ -10,6 +10,7 @@ const pJson = require('./package.json')
 
 const version = pJson.version
 const license = pJson.license
+const pName = camelCase(pJson.name)
 
 const banner =
   '/*!\n' +
@@ -36,12 +37,20 @@ const fileNames = {
 }
 const fileName = fileNames[ENV]
 
+function fcamelCase (all, letter) {
+  return letter.toUpperCase()
+}
+function camelCase (string) {
+  const rdashAlpha = /-([a-z])/ig
+  return string.replace(rdashAlpha, fcamelCase)
+}
+
 export default {
   input: `${paths.input.root}`,
   output: {
     file: `${paths.output.root}${fileName}`,
     format: ENV === 'production6' ? 'es' : 'umd',
-    name: 'bundle-name',
+    name: `${pName}`,
     banner
   },
   plugins: [
@@ -60,8 +69,9 @@ export default {
       runtimeHelpers: true
     }),
     replace({
-      exclude: 'node_modules/**',
-      ENV: JSON.stringify(process.env.NODE_ENV)
+      // exclude: 'node_modules/**',
+      ENVIRONMENT: JSON.stringify(`${ENV}`),
+      'process.env.NODE_ENV': JSON.stringify(`${ENV}`)
     }),
     (ENV === 'production') && uglify({ output: { comments: /^!/ } }),
     (ENV === 'production6') && uglifyEs({ output: { comments: /^!/ } })

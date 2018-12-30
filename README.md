@@ -19,6 +19,7 @@ yarn add map-export-image
 ### Usage
 
 ```javascript
+// ES6
 import { down } from 'map-export-image' 
 
 down('map_container_id')
@@ -26,6 +27,13 @@ or
 down('map_container_id',{
    rect:[[100,100],[200,200]]，
    borderWidth:0 
+})
+
+// <script src="index.common.js"></script>
+mapExportImage.down('map_container_id')
+or
+mapExportImage.down('map_container_id',{
+    rect:[[100,100],[200,200]]
 })
 ```
 

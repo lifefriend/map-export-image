@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,body{margin:0px;height:100%;width:100%}
+      #map-div {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/maptalks/dist/maptalks.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/maptalks/dist/maptalks.min.js"
+    ></script>
+    <script src="../dist/index.common.js"></script>
+    <script type="module">
+      import { down } from '../dist/index.esm.js'
+      var map = new maptalks.Map('map-div', {
+        center: [-0.113049, 51.498568],
+        zoom: 14,
+        baseLayer: new maptalks.TileLayer('base', {
+          urlTemplate:
+            'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+          subdomains: ['a', 'b', 'c', 'd'],
+          attribution:
+            '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
+        })
+      })
+      setTimeout(function(){
+        down('map-div');
+      },6000)
+    </script>
+    <script>
+      setTimeout(function(){
+        mapExportImage.down('map-div',{
+          rect:[[100,100],[300,200]]
+        })
+      },7000)
+    </script>
+  </head>
+  <body>
+    <div id="map-div"></div>
+  </body>
+</html>
