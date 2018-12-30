@@ -1,0 +1,46 @@
+{
+  "name": "map-export-image",
+  "description": "export map to image",
+  "version": "0.1.2",
+  "author": "lifefriend_007 <abc_xyz_234@126.com>",
+  "main": "dist/index.common.js",
+  "module": "dist/index.esm.js",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "map export"
+  ],
+  "scripts": {
+    "dev": "set NODE_ENV=development && rollup -c",
+    "build": "npm run buildcjs && npm run buildesm",
+    "lint": "./node_modules/.bin/eslint --init",
+    "buildcjs": "set NODE_ENV=production && rollup -c",
+    "buildesm": "set NODE_ENV=production6 && rollup -c"
+  },
+  "dependencies": {
+    "html2canvas": "^1.0.0-alpha.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "eslint": "^5.11.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "rollup": "^1.0.0",
+    "rollup-plugin-babel": "^4.2.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-uglify": "^6.0.0",
+    "rollup-plugin-uglify-es": "^0.0.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
