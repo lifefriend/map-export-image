@@ -3,8 +3,7 @@ import commonjs from 'rollup-plugin-commonjs'
 import { eslint } from 'rollup-plugin-eslint'
 import babel from 'rollup-plugin-babel'
 import replace from 'rollup-plugin-replace'
-import { uglify } from 'rollup-plugin-uglify'
-import uglifyEs from 'rollup-plugin-uglify-es'
+import { terser } from 'rollup-plugin-terser'
 
 const pJson = require('./package.json')
 
@@ -41,7 +40,7 @@ function fcamelCase (all, letter) {
   return letter.toUpperCase()
 }
 function camelCase (string) {
-  const rdashAlpha = /-([a-z])/ig
+  const rdashAlpha = /-([a-z])/gi
   return string.replace(rdashAlpha, fcamelCase)
 }
 
@@ -73,7 +72,6 @@ export default {
       ENVIRONMENT: JSON.stringify(`${ENV}`),
       'process.env.NODE_ENV': JSON.stringify(`${ENV}`)
     }),
-    (ENV === 'production') && uglify({ output: { comments: /^!/ } }),
-    (ENV === 'production6') && uglifyEs({ output: { comments: /^!/ } })
+    ENV && ENV.includes('production') && terser({ output: { comments: /^!/ } })
   ]
 }
