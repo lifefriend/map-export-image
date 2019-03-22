@@ -58,19 +58,31 @@ function cutShape (canvas, rectangle, lineWidth = 0) {
 }
 
 /**
-* @name: html2canvas 生成静态地图
-* @param: domId 地图容器 dom id
-*/
-export function down (domId, { rect, borderWidth } = {}) {
-  html2canvas(document.getElementById(domId), {
-    useCORS: true,
-    logging: false
-  }).then((canvas) => {
-    if (rect instanceof Array && rect.length === 2) {
-      let newCanvas = cutShape(canvas, rect, borderWidth)
-      downCanvas(newCanvas)
-    } else {
-      downCanvas(canvas)
-    }
+ * @name: html2canvas 生成静态地图
+ * @param: domId 地图容器 dom id
+ */
+export function toCanvas (domId, { rect, borderWidth } = {}) {
+  return new Promise((resolve, reject) => {
+    html2canvas(document.getElementById(domId), {
+      useCORS: true,
+      logging: false
+    }).then(canvas => {
+      if (rect instanceof Array && rect.length === 2) {
+        let newCanvas = cutShape(canvas, rect, borderWidth)
+        resolve(newCanvas)
+      } else {
+        resolve(canvas)
+      }
+    }).catch(e => {
+      reject(e)
+    })
   })
+}
+
+/**
+ * @name: html2canvas 生成静态地图并下载
+ * @param: domId 地图容器 dom id
+ */
+export function down (domId, { rect, borderWidth } = {}) {
+  toCanvas(domId, { rect, borderWidth }).then(canvas => downCanvas(canvas))
 }

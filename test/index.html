@@ -22,7 +22,7 @@
     ></script>
     <script src="../dist/index.common.js"></script>
     <script type="module">
-      import { down } from '../dist/index.esm.js'
+      import { down,toCanvas } from '../dist/index.esm.js'
       var map = new maptalks.Map('map-div', {
         center: [-0.113049, 51.498568],
         zoom: 14,
@@ -34,19 +34,29 @@
             '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
         })
       })
-      setTimeout(function(){
+      function downEs6(){
         down('map-div');
-      },6000)
+        // toCanvas('map-div').then(canvas=>{
+        //   console.log('canvas:ES6 ', canvas);
+        // })
+      }
+      window.downEs6 = downEs6;
     </script>
     <script>
-      setTimeout(function(){
+      function downEs5(){
         mapExportImage.down('map-div',{
           rect:[[100,100],[300,200]]
         })
-      },7000)
+        // mapExportImage.toCanvas('map-div',{
+        //   rect:[[100,100],[300,200]]
+        // }).then(canvas=>{
+        //   console.log('canvas:ES5 ', canvas);
+        // })
+      }
     </script>
   </head>
   <body>
+    <div> <button onclick="downEs6()">下载(es6)</button> <button onclick="downEs5()">下载(es5)</button></div>
     <div id="map-div"></div>
   </body>
 </html>
