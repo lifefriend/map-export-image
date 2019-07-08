@@ -1,12 +1,16 @@
 {
   "name": "map-export-image",
   "description": "export map to image",
-  "version": "0.1.5",
-  "author": "lifefriend_007 <abc_xyz_234@126.com>",
+  "version": "0.1.8",
+  "author": "lifefriend_007 <nnhjgg@163.com>",
   "main": "dist/index.common.js",
   "module": "dist/index.esm.js",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lifefriend/map-export-image.git"
+  },
   "keywords": [
     "map export"
   ],

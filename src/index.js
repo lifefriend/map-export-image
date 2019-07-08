@@ -23,7 +23,7 @@ function downCanvas (canvas) {
   } else {
     const alink = document.createElement('a')
     if ('download' in alink) {
-      alink.setAttribute('download', fName)
+      alink.setAttribute('download', `${fName}.png`)
     } else {
       alink.setAttribute('target', '_blank')
     }
