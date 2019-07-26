@@ -1,7 +1,7 @@
 {
   "name": "map-export-image",
   "description": "export map to image",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "author": "lifefriend_007 <nnhjgg@163.com>",
   "main": "dist/index.common.js",
   "module": "dist/index.esm.js",
@@ -18,8 +18,10 @@
     "dev": "set NODE_ENV=development && rollup -c",
     "build": "npm run buildcjs && npm run buildesm",
     "lint": "./node_modules/.bin/eslint --init",
-    "buildcjs": "set NODE_ENV=production && rollup -c",
-    "buildesm": "set NODE_ENV=production6 && rollup -c"
+    "winbuildcjs": "set NODE_ENV=production && rollup -c",
+    "winbuildesm": "set NODE_ENV=production6 && rollup -c",
+    "buildcjs": "export NODE_ENV=production && rollup -c",
+    "buildesm": "export NODE_ENV=production6 && rollup -c"
   },
   "dependencies": {
     "html2canvas": "^1.0.0-alpha.12"

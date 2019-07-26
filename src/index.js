@@ -21,17 +21,35 @@ function downCanvas (canvas) {
       return navigator.msSaveBlob(new window.Blob([intArray], { type: 'image/png' }), `${fName}.png`)
     }
   } else {
-    const alink = document.createElement('a')
-    if ('download' in alink) {
-      alink.setAttribute('download', `${fName}.png`)
-    } else {
-      alink.setAttribute('target', '_blank')
-    }
-    alink.href = url
-    const evt = document.createEvent('MouseEvents')
-    evt.initEvent('click', true, true)
-    alink.dispatchEvent(evt)
+    dataURIToBlob(url).then((blob) => {
+      const alink = document.createElement('a')
+      if ('download' in alink) {
+        alink.setAttribute('download', `${fName}.png`)
+      } else {
+        alink.setAttribute('target', '_blank')
+      }
+      alink.href = URL.createObjectURL(blob)
+      const evt = document.createEvent('MouseEvents')
+      evt.initEvent('click', true, true)
+      alink.dispatchEvent(evt)
+    })
   }
+}
+/**
+* @name: 解决base64文件过大时,图片下载失败问题
+* @param: canvas 静态地图
+* edited from https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob#Polyfill
+*/
+function dataURIToBlob (dataURI) {
+  return new Promise((resolve, reject) => {
+    var binStr = window.atob(dataURI.split(',')[1])
+    var len = binStr.length
+    var arr = new Uint8Array(len)
+    for (var i = 0; i < len; i++) {
+      arr[i] = binStr.charCodeAt(i)
+    }
+    resolve(new window.Blob([arr]))
+  })
 }
 
 /**
@@ -65,6 +83,7 @@ export function toCanvas (domId, { rect, borderWidth } = {}) {
   return new Promise((resolve, reject) => {
     html2canvas(document.getElementById(domId), {
       useCORS: true,
+      // allowTaint: true,
       logging: false
     }).then(canvas => {
       if (rect instanceof Array && rect.length === 2) {
